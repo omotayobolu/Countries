@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import Search from "./components/Search";
+import React from "react";
+import Countries from "./Pages/Countries";
+import { BrowserRouter as Router } from "react-router-dom";
 
 export default function App() {
   return (
-    <div className="App">
-      <Search />
-    </div>
+    <Router>
+      <Countries />
+    </Router>
   );
 }

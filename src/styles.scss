@@ -1,0 +1,58 @@
+$Dark-Blue: hsl(209, 23%, 22%);
+$DarkBackground: hsl(207, 26%, 17%);
+$LightText: hsl(200, 15%, 8%);
+$LightInput: hsl(0, 0%, 52%);
+$LightBackground: hsl(0, 0%, 98%);
+$DarkText-LightElements: hsl(0, 0%, 100%);
+$desktopPadding: 1% 5%;
+
+* {
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+}
+
+.header {
+  padding: $desktopPadding;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+
+  .moon {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: $Dark-Blue;
+  }
+}
+
+.home-page {
+  padding: $desktopPadding;
+  padding-top: 3rem;
+  background-color: $LightBackground;
+
+  form {
+    input {
+      padding: 15px 35px;
+      width: 400px;
+      box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
+        rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+    }
+  }
+
+  .countries {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4rem;
+  }
+}
