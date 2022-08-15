@@ -1,12 +1,11 @@
 import React from "react";
-import { AiOutlineSearch } from "react-icons/ai";
-import { nanoid } from "nanoid";
+// import { AiOutlineSearch } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const CountryPage = ({ country }) => {
   return (
     <div className="home-page">
-      <form onSubmit={(e) => e.preventDefault()}>
-        <AiOutlineSearch />
+      <form>
         <input
           type="text"
           placeholder="Search for a country..."
@@ -21,11 +20,30 @@ const CountryPage = ({ country }) => {
       <div className="countries">
         {country.map((item) => {
           return (
-            <div className="content" key={nanoid()}>
-              <p>
-                Population: <span>{item.population}</span>
-              </p>
-            </div>
+            <Link to={"/details/" + item.name.common}>
+              <div className="content" key={item.ccn3}>
+                <img src={item.flags.png} alt={item.name.common} />
+                <div className="country-content">
+                  <h2>{item.name.official}</h2>
+                  <div className="add-content">
+                    <p>
+                      <strong style={{ fontWeight: 600 }}>Population</strong>:{" "}
+                      {item.population.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </p>
+                    <p>
+                      <strong style={{ fontWeight: 600 }}>Region</strong>:{" "}
+                      {item.region}
+                    </p>
+                    <p>
+                      <strong style={{ fontWeight: 600 }}>Capital</strong>:{" "}
+                      <span>{item.capital}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Link>
           );
         })}
       </div>

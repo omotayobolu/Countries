@@ -14,7 +14,6 @@ const Home = () => {
       const api = await fetch("https://restcountries.com/v3.1/all");
       const data = await api.json();
       setCountry(data);
-      console.log(data);
     }
   };
   return (
