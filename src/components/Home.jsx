@@ -3,6 +3,7 @@ import CountryPage from "./CountryPage";
 import Header from "./Header";
 
 const Home = () => {
+  const [loading, setLoading] = useState(false);
   const [country, setCountry] = useState([]);
 
   useEffect(() => {
@@ -10,16 +11,21 @@ const Home = () => {
   }, []);
 
   const getCountry = async () => {
-    {
-      const api = await fetch("https://restcountries.com/v3.1/all");
-      const data = await api.json();
-      setCountry(data);
-    }
+    setLoading(true);
+    const api = await fetch("https://restcountries.com/v3.1/all");
+    const data = await api.json();
+    setCountry(data);
+    console.log(data);
+    setLoading(false);
   };
   return (
     <div>
       <Header />
-      <CountryPage country={country} />
+      {loading ? (
+        <p className="loading">Loading...</p>
+      ) : (
+        <CountryPage country={country} />
+      )}
     </div>
   );
 };

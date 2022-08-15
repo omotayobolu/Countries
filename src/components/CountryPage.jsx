@@ -27,18 +27,16 @@ const CountryPage = ({ country }) => {
                   <h2>{item.name.official}</h2>
                   <div className="add-content">
                     <p>
-                      <strong style={{ fontWeight: 600 }}>Population</strong>:{" "}
+                      <strong>Population</strong>:{" "}
                       {item.population.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}
                     </p>
                     <p>
-                      <strong style={{ fontWeight: 600 }}>Region</strong>:{" "}
-                      {item.region}
+                      <strong>Region</strong>: {item.region}
                     </p>
                     <p>
-                      <strong style={{ fontWeight: 600 }}>Capital</strong>:{" "}
-                      <span>{item.capital}</span>
+                      <strong>Capital</strong>: <span>{item.capital}</span>
                     </p>
                   </div>
                 </div>
