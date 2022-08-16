@@ -2,48 +2,63 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import Header from "./Header";
+import { nanoid } from "nanoid";
 
 const Details = () => {
   let params = useParams();
 
-  const [details, setDetails] = useState({});
-
-  const fetchDetails = async () => {
-    const data = await fetch(
-      `https://restcountries.com/v3.1/name/${params.name}`
-    );
-    const detailsData = await data.json();
-    setDetails(detailsData);
-    console.log(detailsData);
-  };
+  const [loading, setLoading] = useState(false);
+  const [details, setDetails] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
+    const fetchDetails = async () => {
+      const data = await fetch(
+        `https://restcountries.com/v3.1/name/${params.name}`
+      );
+      const detailsData = await data.json();
+      setDetails(detailsData[0]);
+      console.log(detailsData[0]);
+      setLoading(false);
+    };
+
     fetchDetails();
   }, [params.name]);
 
+  if (details.length === 0) {
+    return <p className="loading">Loading....</p>;
+  }
+
   return (
-    <>
+    <div className="detailsPage">
       <Header />
-      <div className="details">
+      <div className="detail">
         <Link to="/">
           <button className="back">
             <BiArrowBack /> Back
           </button>
         </Link>
-        <div className="details-content">
-          <div className="details-img">
-            {/* <img src={details.flags.png} alt={details.name.official} /> */}
-          </div>
-          {/* <div className="details-text">
-            <h1>{details.name.official}</h1>
+
+        {!loading && (
+          <div className="details-content">
+            <div className="details-img">
+              <img src={details.flags.png} alt={details.name.official} />
+            </div>
             <div className="description">
+              <h1>{details.name.common}</h1>
               <p>
                 <strong>Native Name: </strong>
-                {details.name.nativeName.common}
+                {
+                  details.name.nativeName[
+                    Object.keys(details.name.nativeName)[0]
+                  ].official
+                }
               </p>
               <p>
                 <strong>Population: </strong>
-                {details.population}
+                {details.population.toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}
               </p>
               <p>
                 <strong>Region: </strong>
@@ -55,33 +70,43 @@ const Details = () => {
               </p>
               <p>
                 <strong>Capital: </strong>
-                {details.capital[0]}
+                {details.capital.map((cap) => (
+                  <div className="caps" key={nanoid()}>
+                    {cap}
+                  </div>
+                ))}
               </p>
               <p>
                 <strong>Top Level Domain: </strong>
-                {details.tld[0]}
+                {details.tld.map((top) => (
+                  <div className="topLevel" key={nanoid()}>
+                    {top}
+                  </div>
+                ))}
               </p>
               <p>
                 <strong>Currencies: </strong>
-                {details.currencies}
+                {details.currencies[Object.keys(details.currencies)[0]].name}
               </p>
               <p>
                 <strong>Languages: </strong>
-                {details.languages}
+                {details.languages[Object.keys(details.languages)[0]]}
               </p>
+            </div>{" "}
+            <div className="details">
+              <strong>Borders: </strong>
+              {details.borders.map((border) => {
+                return (
+                  <div className="border" key={nanoid()}>
+                    {border}
+                  </div>
+                );
+              })}
             </div>
-            <div className="borders">
-              <strong>Border Countries: </strong>
-              {details.borders.map((border) => (
-                <div className="border">
-                  <p>{border.border}</p>
-                </div>
-              ))}
-            </div>
-          </div> */}
-        </div>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

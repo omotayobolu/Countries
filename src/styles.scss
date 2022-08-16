@@ -79,7 +79,7 @@ strong {
     margin-top: 3rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 4rem;
+    gap: 3rem;
   }
 
   .content {
@@ -108,16 +108,21 @@ strong {
   }
 }
 
-.details {
-  margin: 5%;
+.detailsPage {
+  background-color: #fff;
+  height: 100vh;
 
-  .back {
-    background-color: #fff;
-    padding: 5px 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.43);
+  .detail {
+    margin: 5%;
+
+    .back {
+      background-color: #fff;
+      padding: 5px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.43);
+    }
   }
 }
