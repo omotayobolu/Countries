@@ -1,18 +1,31 @@
-import React from "react";
-// import { AiOutlineSearch } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
 
 const CountryPage = ({ country }) => {
+  const navigate = useNavigate();
+
+  const [search, setSearch] = useState("");
+
+  const SubmitHandler = (e) => {
+    e.preventDefault();
+    navigate("/searched/" + search);
+  };
+
   return (
     <div className="home-page">
-      <form>
+      <form onSubmit={SubmitHandler}>
+        <FaSearch />
         <input
           type="text"
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
           placeholder="Search for a country..."
           style={{
             color: "hsl(209, 23%, 22%)",
             borderRadius: "5px",
             fontSize: "0.9rem",
+            fontWeight: "600",
           }}
         />
       </form>

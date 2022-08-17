@@ -48,29 +48,29 @@ const Details = () => {
                 <div className="main-description-1">
                   <p>
                     <strong>Native Name: </strong>
-                    <div>
+                    <span>
                       {
                         details.name.nativeName[
                           Object.keys(details.name.nativeName)[0]
                         ].official
                       }
-                    </div>
+                    </span>
                   </p>
                   <p>
                     <strong>Population: </strong>
-                    <div>
+                    <span>
                       {details.population.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}
-                    </div>
+                    </span>
                   </p>
                   <p>
                     <strong>Region: </strong>
-                    <div>{details.region}</div>
+                    <span>{details.region}</span>
                   </p>
                   <p>
                     <strong>Sub Region: </strong>
-                    <div>{details.subregion}</div>
+                    <span>{details.subregion}</span>
                   </p>
                   <p>
                     <strong>Capital: </strong>
@@ -92,18 +92,18 @@ const Details = () => {
                   </p>
                   <p>
                     <strong>Currencies: </strong>
-                    <div>
+                    <span>
                       {
                         details.currencies[Object.keys(details.currencies)[0]]
                           .name
                       }
-                    </div>
+                    </span>
                   </p>
                   <p>
                     <strong>Languages: </strong>
-                    <div>
+                    <span>
                       {details.languages[Object.keys(details.languages)[0]]}
-                    </div>
+                    </span>
                   </p>
                 </div>
               </div>
