@@ -41,68 +41,83 @@ const Details = () => {
 
         {!loading && (
           <div className="details-content">
-            <div className="details-img">
-              <img src={details.flags.png} alt={details.name.official} />
-            </div>
+            <img src={details.flags.png} alt={details.name.official} />
             <div className="description">
               <h1>{details.name.common}</h1>
-              <p>
-                <strong>Native Name: </strong>
-                {
-                  details.name.nativeName[
-                    Object.keys(details.name.nativeName)[0]
-                  ].official
-                }
-              </p>
-              <p>
-                <strong>Population: </strong>
-                {details.population.toLocaleString(undefined, {
-                  maximumFractionDigits: 2,
+              <div className="main-description">
+                <div className="main-description-1">
+                  <p>
+                    <strong>Native Name: </strong>
+                    <div>
+                      {
+                        details.name.nativeName[
+                          Object.keys(details.name.nativeName)[0]
+                        ].official
+                      }
+                    </div>
+                  </p>
+                  <p>
+                    <strong>Population: </strong>
+                    <div>
+                      {details.population.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </div>
+                  </p>
+                  <p>
+                    <strong>Region: </strong>
+                    <div>{details.region}</div>
+                  </p>
+                  <p>
+                    <strong>Sub Region: </strong>
+                    <div>{details.subregion}</div>
+                  </p>
+                  <p>
+                    <strong>Capital: </strong>
+                    {details.capital.map((cap) => (
+                      <div className="caps" key={nanoid()}>
+                        {cap}
+                      </div>
+                    ))}
+                  </p>
+                </div>
+                <div className="main-description-2">
+                  <p>
+                    <strong>Top Level Domain: </strong>
+                    {details.tld.map((top) => (
+                      <div className="topLevel" key={nanoid()}>
+                        {top}
+                      </div>
+                    ))}
+                  </p>
+                  <p>
+                    <strong>Currencies: </strong>
+                    <div>
+                      {
+                        details.currencies[Object.keys(details.currencies)[0]]
+                          .name
+                      }
+                    </div>
+                  </p>
+                  <p>
+                    <strong>Languages: </strong>
+                    <div>
+                      {details.languages[Object.keys(details.languages)[0]]}
+                    </div>
+                  </p>
+                </div>
+              </div>
+              <div className="borders">
+                <strong>Border Countries: </strong>
+                {details.borders.map((border) => {
+                  return (
+                    <div className="border" key={nanoid()}>
+                      {border}
+                    </div>
+                  );
                 })}
-              </p>
-              <p>
-                <strong>Region: </strong>
-                {details.region}
-              </p>
-              <p>
-                <strong>Sub Region: </strong>
-                {details.subregion}
-              </p>
-              <p>
-                <strong>Capital: </strong>
-                {details.capital.map((cap) => (
-                  <div className="caps" key={nanoid()}>
-                    {cap}
-                  </div>
-                ))}
-              </p>
-              <p>
-                <strong>Top Level Domain: </strong>
-                {details.tld.map((top) => (
-                  <div className="topLevel" key={nanoid()}>
-                    {top}
-                  </div>
-                ))}
-              </p>
-              <p>
-                <strong>Currencies: </strong>
-                {details.currencies[Object.keys(details.currencies)[0]].name}
-              </p>
-              <p>
-                <strong>Languages: </strong>
-                {details.languages[Object.keys(details.languages)[0]]}
-              </p>
+              </div>
             </div>{" "}
-            <div className="details">
-              <strong>Borders: </strong>
-              {details.borders.map((border) => {
-                return (
-                  <div className="border" key={nanoid()}>
-                    {border}
-                  </div>
-                );
-              })}
-            </div>
           </div>
         )}
       </div>
