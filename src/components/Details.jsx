@@ -109,13 +109,17 @@ const Details = () => {
               </div>
               <div className="borders">
                 <strong>Border Countries: </strong>
-                {details.borders.map((border) => {
-                  return (
-                    <div className="border" key={nanoid()}>
-                      {border}
-                    </div>
-                  );
-                })}
+                {details.borders > 0 ? (
+                  details.borders.map((border) => {
+                    return (
+                      <div className="border" key={nanoid()}>
+                        {border}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <p style={{ marginLeft: "5px" }}>No borders</p>
+                )}
               </div>
             </div>{" "}
           </div>
