@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
+import Dropdown from "./Dropdown";
 
 const CountryPage = ({ country }) => {
   const navigate = useNavigate();
@@ -14,22 +15,26 @@ const CountryPage = ({ country }) => {
 
   return (
     <div className="home-page">
-      <form onSubmit={SubmitHandler}>
-        <FaSearch />
-        <input
-          type="text"
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
-          placeholder="Search for a country..."
-          style={{
-            color: "hsl(209, 23%, 22%)",
-            borderRadius: "5px",
-            fontSize: "0.9rem",
-            fontWeight: "600",
-          }}
-        />
-      </form>
-
+      <div className="home-page-heading">
+        <form onSubmit={SubmitHandler}>
+          <FaSearch />
+          <input
+            type="text"
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
+            placeholder="Search for a country..."
+            style={{
+              color: "hsl(209, 23%, 22%)",
+              borderRadius: "5px",
+              fontSize: "0.9rem",
+              fontWeight: "600",
+            }}
+          />
+        </form>
+        <div className="selectRegions">
+          <Dropdown />
+        </div>
+      </div>
       <div className="countries">
         {country.map((item) => {
           return (

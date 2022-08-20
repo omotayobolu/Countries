@@ -4,6 +4,7 @@ import Home from "../components/Home";
 import { useLocation } from "react-router-dom";
 import Details from "../components/Details";
 import Searched from "../components/Searched";
+import Regions from "../components/Regions";
 
 const Countries = () => {
   const location = useLocation();
@@ -13,6 +14,7 @@ const Countries = () => {
       <Route path="/" element={<Home />} />
       <Route path="/details/:name" element={<Details />} />
       <Route path="/searched/:search" element={<Searched />} />
+      <Route path="/region/:region" element={<Regions />} />
     </Routes>
   );
 };

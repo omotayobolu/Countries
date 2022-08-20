@@ -22,7 +22,7 @@ const Searched = () => {
   return (
     <>
       <Header />
-      <div className="detailsPage">
+      <div className="detailsPage" style={{ height: "75vh" }}>
         <div className="detail">
           <Link to="/">
             <button className="back">
@@ -101,7 +101,7 @@ const Searched = () => {
                   </div>
                   <div className="borders">
                     <strong>Border Countries: </strong>
-                    {item.borders > 0 ? (
+                    {item.borders ? (
                       item.borders.map((border) => {
                         return (
                           <div className="border" key={nanoid()}>

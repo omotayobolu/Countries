@@ -85,9 +85,9 @@ const Details = () => {
                   <p>
                     <strong>Top Level Domain: </strong>
                     {details.tld.map((top) => (
-                      <div className="topLevel" key={nanoid()}>
+                      <span className="topLevel" key={nanoid()}>
                         {top}
-                      </div>
+                      </span>
                     ))}
                   </p>
                   <p>
@@ -103,18 +103,19 @@ const Details = () => {
                     <strong>Languages: </strong>
                     <span>
                       {details.languages[Object.keys(details.languages)[0]]}
+                      {console.log}
                     </span>
                   </p>
                 </div>
               </div>
               <div className="borders">
                 <strong>Border Countries: </strong>
-                {details.borders > 0 ? (
+                {details.borders ? (
                   details.borders.map((border) => {
                     return (
-                      <div className="border" key={nanoid()}>
+                      <span className="border" key={nanoid()}>
                         {border}
-                      </div>
+                      </span>
                     );
                   })
                 ) : (

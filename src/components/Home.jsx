@@ -23,7 +23,7 @@ const Home = () => {
       {loading ? (
         <p className="loading">Loading...</p>
       ) : (
-        <CountryPage country={country} />
+        <CountryPage country={country} setCountry={setCountry} />
       )}
     </div>
   );

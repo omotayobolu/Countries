@@ -21,7 +21,7 @@ body {
 }
 
 a {
-  color: $Dark-Blue;
+  color: $LightText;
   text-decoration: none;
 }
 
@@ -40,6 +40,16 @@ strong {
   font-weight: 600;
   font-size: 1.5rem;
   height: 80vh;
+}
+
+.back {
+  background-color: #fff;
+  padding: 5px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.43);
 }
 
 .header {
@@ -67,12 +77,18 @@ strong {
   padding: $desktopPadding;
   padding-top: 3rem;
 
-  form {
-    input {
-      padding: 15px 35px;
-      width: 400px;
-      box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
-        rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+  .home-page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    form {
+      input {
+        padding: 15px 35px;
+        width: 400px;
+        box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
+          rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+      }
     }
   }
 
@@ -115,16 +131,6 @@ strong {
   .detail {
     margin: 5%;
 
-    .back {
-      background-color: #fff;
-      padding: 5px 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.43);
-    }
-
     .details-content {
       margin-top: 5rem;
       display: grid;
@@ -137,6 +143,8 @@ strong {
       }
 
       .description {
+        color: $LightText;
+
         h1 {
           font-size: 1.7rem;
           font-weight: 800;
@@ -174,6 +182,90 @@ strong {
           display: flex;
           justify-content: space-between;
           align-items: center;
+        }
+      }
+    }
+  }
+}
+
+.dropdown {
+  font-weight: 600;
+  position: relative;
+  user-select: none;
+
+  .dropdown-head {
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
+      rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    cursor: pointer;
+
+    :nth-child(2) {
+      width: 150%;
+      height: 150%;
+    }
+  }
+
+  .dropdown-body {
+    position: absolute;
+    top: 3rem;
+    padding: 0.5rem;
+    background-color: #fff;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.15);
+
+    .item {
+      margin: 7px 0;
+      padding-left: 10px;
+      cursor: pointer;
+
+      &:hover {
+        color: $LightInput;
+      }
+    }
+  }
+}
+
+.regions {
+  .region-heading {
+    margin: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .region-countries {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    margin: 5%;
+
+    .content {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 7px 17px 20px -19px rgba(0, 0, 0, 0.37);
+      height: 330px;
+
+      img {
+        max-width: 100%;
+        width: 100%;
+        height: 150px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+      }
+
+      .country-content {
+        padding: 1rem;
+
+        .add-content {
+          padding-top: 0.5rem;
+          padding-bottom: 1rem;
+          line-height: 1.5;
         }
       }
     }
