@@ -4,7 +4,7 @@ import { BiArrowBack } from "react-icons/bi";
 import Header from "./Header";
 import { nanoid } from "nanoid";
 
-const Details = () => {
+const Details = ({ darkMode, toggleDarkMode }) => {
   let params = useParams();
 
   const [loading, setLoading] = useState(false);
@@ -26,15 +26,15 @@ const Details = () => {
   }, [params.name]);
 
   if (details.length === 0) {
-    return <p className="loading">Loading....</p>;
+    return <p className={darkMode ? "dark loading" : "loading"}>Loading....</p>;
   }
 
   return (
-    <div className="detailsPage">
-      <Header />
+    <div className={darkMode ? "dark detailsPage" : "detailsPage"}>
+      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <div className="detail">
         <Link to="/">
-          <button className="back">
+          <button className={darkMode ? "dark back" : "back"}>
             <BiArrowBack /> Back
           </button>
         </Link>
@@ -42,9 +42,13 @@ const Details = () => {
         {!loading && (
           <div className="details-content">
             <img src={details.flags.png} alt={details.name.official} />
-            <div className="description">
+            <div className={darkMode ? "dark description" : "description"}>
               <h1>{details.name.common}</h1>
-              <div className="main-description">
+              <div
+                className={
+                  darkMode ? "dark main-description" : "main-description"
+                }
+              >
                 <div className="main-description-1">
                   <p>
                     <strong>Native Name: </strong>
@@ -108,7 +112,7 @@ const Details = () => {
                   </p>
                 </div>
               </div>
-              <div className="borders">
+              <div className={darkMode ? "dark borders" : "borders"}>
                 <strong>Border Countries: </strong>
                 {details.borders ? (
                   details.borders.map((border) => {

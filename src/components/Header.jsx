@@ -2,15 +2,15 @@ import React from "react";
 import { BsMoon, BsMoonFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ darkMode, toggleDarkMode }) => {
   return (
-    <div className="header">
+    <div id="header" className={darkMode ? "dark" : ""}>
       <Link to="/">
-        <h1>Where in the world?</h1>
+        <h1 className={darkMode ? "dark" : ""}>Where in the world?</h1>
       </Link>
-      <div className="moon">
-        <BsMoon />
-        Dark Mode
+      <div className={darkMode ? "dark moon" : "moon"} onClick={toggleDarkMode}>
+        {darkMode ? <BsMoonFill style={{ fill: "white" }} /> : <BsMoon />}
+        {darkMode ? "Dark" : "Light"} Mode
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import Dropdown from "./Dropdown";
 
-const CountryPage = ({ country }) => {
+const CountryPage = ({ country, darkMode }) => {
   const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
@@ -14,7 +14,7 @@ const CountryPage = ({ country }) => {
   };
 
   return (
-    <div className="home-page">
+    <div className={darkMode ? "dark home-page" : "home-page"}>
       <div className="home-page-heading">
         <form onSubmit={SubmitHandler}>
           <FaSearch />
@@ -23,23 +23,21 @@ const CountryPage = ({ country }) => {
             onChange={(e) => setSearch(e.target.value)}
             value={search}
             placeholder="Search for a country..."
-            style={{
-              color: "hsl(209, 23%, 22%)",
-              borderRadius: "5px",
-              fontSize: "0.9rem",
-              fontWeight: "600",
-            }}
+            className={darkMode ? "dark" : ""}
           />
         </form>
         <div className="selectRegions">
-          <Dropdown />
+          <Dropdown darkMode={darkMode} />
         </div>
       </div>
       <div className="countries">
         {country.map((item) => {
           return (
             <Link to={"/details/" + item.name.common}>
-              <div className="content" key={item.ccn3}>
+              <div
+                className={darkMode ? "dark content" : "content"}
+                key={item.ccn3}
+              >
                 <img src={item.flags.png} alt={item.name.common} />
                 <div className="country-content">
                   <h2>{item.name.official}</h2>

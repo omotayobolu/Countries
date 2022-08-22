@@ -4,7 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import Header from "./Header";
 
-const Searched = () => {
+const Searched = ({ darkMode, toggleDarkMode }) => {
   let params = useParams();
   const [searchedCountries, setSearchedCountries] = useState([]);
 
@@ -19,13 +19,17 @@ const Searched = () => {
     getSearched(params.search);
   }, [params.search]);
 
+  if (searchedCountries.length === 0) {
+    return <p className={darkMode ? "dark loading" : "loading"}>Loading....</p>;
+  }
+
   return (
     <>
-      <Header />
-      <div className="detailsPage" style={{ height: "75vh" }}>
+      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <div className={darkMode ? "dark detailsPage" : "detailsPage"}>
         <div className="detail">
           <Link to="/">
-            <button className="back">
+            <button className={darkMode ? "dark back" : "back"}>
               <BiArrowBack /> Back
             </button>
           </Link>
@@ -34,7 +38,7 @@ const Searched = () => {
             return (
               <div className="details-content" key={nanoid()}>
                 <img src={item.flags.png} alt={item.name.official} />
-                <div className="description">
+                <div className={darkMode ? "dark description" : "description"}>
                   <h1>{item.name.common}</h1>
                   <div className="main-description">
                     <div className="main-description-1">

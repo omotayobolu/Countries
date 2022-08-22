@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CountryPage from "./CountryPage";
 import Header from "./Header";
 
-const Home = () => {
+const Home = ({ darkMode, toggleDarkMode }) => {
   const [loading, setLoading] = useState(false);
   const [country, setCountry] = useState([]);
 
@@ -19,11 +19,16 @@ const Home = () => {
   };
   return (
     <div>
-      <Header />
+      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       {loading ? (
-        <p className="loading">Loading...</p>
+        <p className={darkMode ? "dark loading" : "loading"}>Loading...</p>
       ) : (
-        <CountryPage country={country} setCountry={setCountry} />
+        <CountryPage
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
+          country={country}
+          setCountry={setCountry}
+        />
       )}
     </div>
   );

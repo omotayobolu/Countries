@@ -4,7 +4,7 @@ import { BiArrowBack } from "react-icons/bi";
 import Header from "./Header";
 import Dropdown from "./Dropdown";
 
-const Regions = () => {
+const Regions = ({ darkMode, toggleDarkMode }) => {
   const [regions, setRegions] = useState([]);
 
   let params = useParams();
@@ -22,22 +22,29 @@ const Regions = () => {
     getRegion();
   });
 
+  if (regions.length === 0) {
+    return <p className={darkMode ? "dark loading" : "loading"}>Loading....</p>;
+  }
+
   return (
-    <div className="regions">
-      <Header />
+    <div className={darkMode ? "dark regions" : "regions"}>
+      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <div className="region-heading">
-        <Link to="/regions/">
-          <button className="back">
+        <Link to="/">
+          <button className={darkMode ? "dark back" : "back"}>
             <BiArrowBack /> Back
           </button>
         </Link>
-        <Dropdown />
+        <Dropdown darkMode={darkMode} />
       </div>
       <div className="region-countries">
         {regions.map((item) => {
           return (
-            <div className="content" key={item.ccn3}>
-              <Link to={"/details/" + item.name.common}>
+            <Link to={"/details/" + item.name.common}>
+              <div
+                className={darkMode ? "dark content" : "content"}
+                key={item.ccn3}
+              >
                 <img src={item.flags.png} alt={item.name.common} />
                 <div className="country-content">
                   <h2>{item.name.official}</h2>
@@ -56,8 +63,8 @@ const Regions = () => {
                     </p>
                   </div>
                 </div>
-              </Link>
-            </div>
+              </div>
+            </Link>
           );
         })}
       </div>
