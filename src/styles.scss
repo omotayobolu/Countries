@@ -8,6 +8,23 @@ $desktopPadding: 1% 5%;
 $LetterSpacing: 0.5px;
 $CardBorderRadius: 10px;
 
+$breakpoints: (
+  "mobile": 768px,
+  "tablet": 769px,
+);
+
+@mixin mobile {
+  @media (max-width: map-get($breakpoints, "mobile")) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: map-get($breakpoints, "tablet")) {
+    @content;
+  }
+}
+
 * {
   border: none;
   outline: none;
@@ -68,6 +85,10 @@ strong {
   gap: 5px;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.43);
 
+  @include mobile {
+    margin-top: 1rem;
+  }
+
   &.dark {
     background-color: $Dark-Blue;
     color: $DarkModeText;
@@ -82,6 +103,9 @@ strong {
   justify-content: space-between;
   align-items: center;
   box-shadow: 7px 17px 20px -19px rgba(0, 0, 0, 0.37);
+  height: 2.5rem;
+  position: fixed;
+  width: 100%;
 
   &.dark {
     background-color: $Dark-Blue;
@@ -92,6 +116,10 @@ strong {
     font-size: 1.6rem;
     font-weight: 800;
     color: $Dark-Blue;
+
+    @include mobile {
+      font-size: 1.2rem;
+    }
 
     &.dark {
       color: $DarkModeText;
@@ -105,6 +133,7 @@ strong {
     font-weight: 600;
     color: $Dark-Blue;
     cursor: pointer;
+    flex-direction: row;
 
     &.dark {
       color: $DarkModeText;
@@ -116,6 +145,10 @@ strong {
   padding: $desktopPadding;
   padding-top: 3rem;
 
+  @include mobile {
+    padding-top: 2rem;
+  }
+
   &.dark {
     background-color: $DarkBackground;
   }
@@ -125,9 +158,31 @@ strong {
     justify-content: space-between;
     align-items: center;
 
+    @include mobile {
+      flex-direction: column;
+    }
+
     form {
+      margin-top: 2rem;
+      position: relative;
+
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        transform: translate(100%, -50%);
+        color: $Dark-Blue;
+
+        &.dark {
+          color: $DarkModeText;
+        }
+      }
+
+      @include mobile {
+        width: 100%;
+      }
       input {
-        padding: 15px 35px;
+        padding: 15px 55px;
         width: 400px;
         box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
           rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
@@ -135,6 +190,10 @@ strong {
         border-radius: 5px;
         font-size: 0.9rem;
         font-weight: 600;
+
+        @include mobile {
+          width: 100%;
+        }
 
         &.dark {
           background-color: $Dark-Blue;
@@ -146,6 +205,13 @@ strong {
         }
       }
     }
+
+    .selectRegions {
+      @include mobile {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
   }
 
   .countries {
@@ -153,6 +219,11 @@ strong {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      margin: 3rem 10% 0;
+    }
   }
 
   .content {
@@ -200,9 +271,18 @@ strong {
       grid-template-columns: repeat(2, 1fr);
       gap: 3rem;
 
+      @include mobile {
+        grid-template-columns: 1fr;
+      }
+
       img {
         width: 500px;
         height: 300px;
+
+        @include mobile {
+          max-width: 100%;
+          height: 250px;
+        }
       }
 
       .description {
@@ -225,6 +305,11 @@ strong {
           gap: 2rem;
           flex-wrap: wrap;
 
+          @include mobile {
+            flex-direction: column;
+            line-height: 2;
+          }
+
           &.dark {
             opacity: 0.9;
           }
@@ -232,6 +317,7 @@ strong {
           p {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
 
             :nth-child(2) {
               padding-left: 5px;
@@ -244,7 +330,13 @@ strong {
       .borders {
         margin-top: 2rem;
         display: flex;
+        flex-direction: row;
         align-items: center;
+
+        @include mobile {
+          flex-wrap: wrap;
+          line-height: 2;
+        }
 
         &.dark {
           opacity: 0.9;
@@ -267,6 +359,11 @@ strong {
   font-weight: 600;
   position: relative;
   user-select: none;
+
+  @include mobile {
+    margin-top: 2rem;
+    align-items: center;
+  }
 
   .dropdown-head {
     padding: 10px 20px;
@@ -333,12 +430,18 @@ strong {
     justify-content: space-between;
     align-items: center;
   }
+
   .region-countries {
     margin-top: 3rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
     margin: 5%;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      margin: 3rem 15% 0;
+    }
 
     .content {
       background-color: white;

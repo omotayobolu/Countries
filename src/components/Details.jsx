@@ -78,11 +78,15 @@ const Details = ({ darkMode, toggleDarkMode }) => {
                   </p>
                   <p>
                     <strong>Capital: </strong>
-                    {details.capital.map((cap) => (
-                      <div className="caps" key={nanoid()}>
-                        {cap}
-                      </div>
-                    ))}
+                    {details.capital ? (
+                      details.capital.map((cap) => (
+                        <div className="caps" key={nanoid()}>
+                          {cap}
+                        </div>
+                      ))
+                    ) : (
+                      <p>No capital</p>
+                    )}
                   </p>
                 </div>
                 <div className="main-description-2">

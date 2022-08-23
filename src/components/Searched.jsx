@@ -70,11 +70,15 @@ const Searched = ({ darkMode, toggleDarkMode }) => {
                       </p>
                       <p>
                         <strong>Capital: </strong>
-                        {item.capital.map((cap) => (
-                          <div className="caps" key={nanoid()}>
-                            {cap}
-                          </div>
-                        ))}
+                        {item.capital ? (
+                          item.capital.map((cap) => (
+                            <div className="caps" key={nanoid()}>
+                              {cap}
+                            </div>
+                          ))
+                        ) : (
+                          <p>No capital</p>
+                        )}
                       </p>
                     </div>
                     <div className="main-description-2">

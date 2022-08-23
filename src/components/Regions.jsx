@@ -37,7 +37,7 @@ const Regions = ({ darkMode, toggleDarkMode }) => {
         </Link>
         <Dropdown darkMode={darkMode} />
       </div>
-      <div className="region-countries">
+      <div className="region-countries" style={{ paddingBottom: "10%" }}>
         {regions.map((item) => {
           return (
             <Link to={"/details/" + item.name.common}>
@@ -58,8 +58,11 @@ const Regions = ({ darkMode, toggleDarkMode }) => {
                     <p>
                       <strong>Region</strong>: {item.region}
                     </p>
-                    <p>
-                      <strong>Capital</strong>: <span>{item.capital}</span>
+                    <p style={{ display: "flex" }}>
+                      <strong>Capital</strong>:{" "}
+                      <span>
+                        {item.capital ? item.capital : <p> No capital</p>}
+                      </span>
                     </p>
                   </div>
                 </div>

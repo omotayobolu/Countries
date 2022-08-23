@@ -17,7 +17,7 @@ const CountryPage = ({ country, darkMode }) => {
     <div className={darkMode ? "dark home-page" : "home-page"}>
       <div className="home-page-heading">
         <form onSubmit={SubmitHandler}>
-          <FaSearch />
+          <FaSearch className={darkMode ? "dark" : ""} />
           <input
             type="text"
             onChange={(e) => setSearch(e.target.value)}
@@ -30,7 +30,7 @@ const CountryPage = ({ country, darkMode }) => {
           <Dropdown darkMode={darkMode} />
         </div>
       </div>
-      <div className="countries">
+      <div className="countries" style={{ paddingBottom: "10%" }}>
         {country.map((item) => {
           return (
             <Link to={"/details/" + item.name.common}>
@@ -51,8 +51,11 @@ const CountryPage = ({ country, darkMode }) => {
                     <p>
                       <strong>Region</strong>: {item.region}
                     </p>
-                    <p>
-                      <strong>Capital</strong>: <span>{item.capital}</span>
+                    <p style={{ display: "flex" }}>
+                      <strong>Capital</strong>:{" "}
+                      <span>
+                        {item.capital ? item.capital : <p> No capital</p>}
+                      </span>
                     </p>
                   </div>
                 </div>
