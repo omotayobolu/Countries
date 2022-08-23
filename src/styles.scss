@@ -10,17 +10,10 @@ $CardBorderRadius: 10px;
 
 $breakpoints: (
   "mobile": 768px,
-  "tablet": 769px,
 );
 
 @mixin mobile {
   @media (max-width: map-get($breakpoints, "mobile")) {
-    @content;
-  }
-}
-
-@mixin tablet {
-  @media (min-width: map-get($breakpoints, "tablet")) {
     @content;
   }
 }
@@ -258,6 +251,7 @@ strong {
 }
 
 .detailsPage {
+  height: 100vh;
   &.dark {
     background-color: $DarkBackground;
   }
