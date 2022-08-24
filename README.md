@@ -31,8 +31,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/omotayobolu/Countries)
-- Live Site URL: [Add live site URL here](https://countries-app-omotayo.netlify.app/)
+- Solution URL: https://github.com/omotayobolu/Countries
+- Live Site URL: https://countries-app-omotayo.netlify.app/
 
 ### Built with
 
@@ -47,6 +47,5 @@ Users should be able to:
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/omotayobolu)
-- Twitter - [@yourusername](https://www.twitter.com/bolu_xy)
+- Frontend Mentor - [omotayobolu](https://www.frontendmentor.io/profile/omotayobolu)
+- Twitter - [bolu_xy](https://www.twitter.com/bolu_xy)
