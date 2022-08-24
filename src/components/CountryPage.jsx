@@ -52,7 +52,7 @@ const CountryPage = ({ country, darkMode }) => {
                       <strong>Region</strong>: {item.region}
                     </p>
                     <p style={{ display: "flex" }}>
-                      <strong>Capital</strong>:{" "}
+                      <strong>Capital</strong>:
                       <span>
                         {item.capital ? item.capital : <p> No capital</p>}
                       </span>

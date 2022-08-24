@@ -79,7 +79,7 @@ strong {
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.43);
 
   @include mobile {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
 
   &.dark {
@@ -99,6 +99,7 @@ strong {
   height: 2.5rem;
   position: fixed;
   width: 100%;
+  z-index: 10;
 
   &.dark {
     background-color: $Dark-Blue;
@@ -251,13 +252,14 @@ strong {
 }
 
 .detailsPage {
-  height: 100vh;
+  max-height: 100%;
   &.dark {
     background-color: $DarkBackground;
   }
 
   .detail {
     padding: 5%;
+    height: 100%;
 
     .details-content {
       margin-top: 5rem;
@@ -326,9 +328,9 @@ strong {
         display: flex;
         flex-direction: row;
         align-items: center;
+        flex-wrap: wrap;
 
         @include mobile {
-          flex-wrap: wrap;
           line-height: 2;
         }
 
@@ -419,7 +421,7 @@ strong {
     background-color: $DarkBackground;
   }
   .region-heading {
-    margin: 5%;
+    padding: 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
