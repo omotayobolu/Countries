@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import Header from "./Header";
 import Dropdown from "./Dropdown";
+import { motion } from "framer-motion";
 
 const Regions = ({ darkMode, toggleDarkMode }) => {
   const [regions, setRegions] = useState([]);
@@ -37,7 +38,14 @@ const Regions = ({ darkMode, toggleDarkMode }) => {
         </Link>
         <Dropdown darkMode={darkMode} />
       </div>
-      <div className="region-countries" style={{ paddingBottom: "10%" }}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1 }}
+        className="region-countries"
+        style={{ paddingBottom: "10%" }}
+      >
         {regions.map((item) => {
           return (
             <Link to={"/details/" + item.name.common}>
@@ -70,7 +78,7 @@ const Regions = ({ darkMode, toggleDarkMode }) => {
             </Link>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 };

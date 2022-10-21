@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import Header from "./Header";
 import { nanoid } from "nanoid";
+import { motion } from "framer-motion";
 
 const Details = ({ darkMode, toggleDarkMode }) => {
   let params = useParams();
@@ -32,7 +33,13 @@ const Details = ({ darkMode, toggleDarkMode }) => {
   return (
     <div className={darkMode ? "dark detailsPage" : "detailsPage"}>
       <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      <div className="detail">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0.3 }}
+        transition={{ duration: 1 }}
+        className="detail"
+      >
         <Link to="/">
           <button className={darkMode ? "dark back" : "back"}>
             <BiArrowBack /> Back
@@ -41,8 +48,17 @@ const Details = ({ darkMode, toggleDarkMode }) => {
 
         {!loading && (
           <div className="details-content">
-            <img src={details.flags.png} alt={details.name.official} />
-            <div className={darkMode ? "dark description" : "description"}>
+            <img
+              data-aos="fade-right"
+              data-aos-duration="3000"
+              src={details.flags.png}
+              alt={details.name.official}
+            />
+            <div
+              data-aos="fade-left"
+              data-aos-duration="3000"
+              className={darkMode ? "dark description" : "description"}
+            >
               <h1>{details.name.common}</h1>
               <div
                 className={
@@ -133,7 +149,7 @@ const Details = ({ darkMode, toggleDarkMode }) => {
             </div>{" "}
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

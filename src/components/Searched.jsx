@@ -37,8 +37,15 @@ const Searched = ({ darkMode, toggleDarkMode }) => {
             searchedCountries.map((item) => {
               return (
                 <div className="details-content" key={nanoid()}>
-                  <img src={item.flags.png} alt={item.name.official} />
+                  <img
+                    data-aos="fade-right"
+                    data-aos-duration="2000"
+                    src={item.flags.png}
+                    alt={item.name.official}
+                  />
                   <div
+                    data-aos="fade-left"
+                    data-aos-duration="2000"
                     className={darkMode ? "dark description" : "description"}
                   >
                     <h1>{item.name.common}</h1>

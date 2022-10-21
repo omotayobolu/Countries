@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import Dropdown from "./Dropdown";
+import { motion } from "framer-motion";
 
 const CountryPage = ({ country, darkMode }) => {
   const navigate = useNavigate();
@@ -14,7 +15,13 @@ const CountryPage = ({ country, darkMode }) => {
   };
 
   return (
-    <div className={darkMode ? "dark home-page" : "home-page"}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0.5 }}
+      transition={{ duration: 1 }}
+      className={darkMode ? "dark home-page" : "home-page"}
+    >
       <div className="home-page-heading">
         <form onSubmit={SubmitHandler}>
           <FaSearch className={darkMode ? "dark" : ""} />
@@ -64,7 +71,7 @@ const CountryPage = ({ country, darkMode }) => {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
