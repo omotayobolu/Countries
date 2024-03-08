@@ -18,6 +18,7 @@
     "react-scripts": "5.0.1",
     "react-select-async-paginate": "^0.6.2",
     "sass": "^1.54.4",
+    "swr": "^2.2.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

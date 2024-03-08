@@ -1,33 +1,33 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import Dropdown from "./Dropdown";
-import { motion } from "framer-motion";
 
 const CountryPage = ({ country, darkMode }) => {
-  const navigate = useNavigate();
-
   const [search, setSearch] = useState("");
+  const [filteredCountries, setFilteredCountries] = useState(country);
 
   const SubmitHandler = (e) => {
     e.preventDefault();
-    navigate("/searched/" + search);
+  };
+
+  const handleFilteredCountries = (event) => {
+    const countryToSearch = event.target.value.toLowerCase();
+    setSearch(countryToSearch);
+    const filtered = country.filter((item) =>
+      item.name.common.toLowerCase().includes(search)
+    );
+    setFilteredCountries(filtered);
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0.5 }}
-      transition={{ duration: 1 }}
-      className={darkMode ? "dark home-page" : "home-page"}
-    >
+    <div className={darkMode ? "dark home-page" : "home-page"}>
       <div className="home-page-heading">
         <form onSubmit={SubmitHandler}>
           <FaSearch className={darkMode ? "dark" : ""} />
           <input
             type="text"
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleFilteredCountries}
             value={search}
             placeholder="Search for a country..."
             className={darkMode ? "dark" : ""}
@@ -38,13 +38,10 @@ const CountryPage = ({ country, darkMode }) => {
         </div>
       </div>
       <div className="countries" style={{ paddingBottom: "10%" }}>
-        {country.map((item) => {
+        {filteredCountries.map((item) => {
           return (
-            <Link to={"/details/" + item.name.common}>
-              <div
-                className={darkMode ? "dark content" : "content"}
-                key={item.ccn3}
-              >
+            <Link to={"/details/" + item.name.common} key={item.name.common}>
+              <div className={darkMode ? "dark content" : "content"}>
                 <img src={item.flags.png} alt={item.name.common} />
                 <div className="country-content">
                   <h2>{item.name.official}</h2>
@@ -60,9 +57,7 @@ const CountryPage = ({ country, darkMode }) => {
                     </p>
                     <p style={{ display: "flex" }}>
                       <strong>Capital</strong>:
-                      <span>
-                        {item.capital ? item.capital : <p> No capital</p>}
-                      </span>
+                      <span>{item.capital ? item.capital : "No capital"}</span>
                     </p>
                   </div>
                 </div>
@@ -71,7 +66,20 @@ const CountryPage = ({ country, darkMode }) => {
           );
         })}
       </div>
-    </motion.div>
+      {filteredCountries.length === 0 && (
+        <p
+          style={{
+            textAlign: "center",
+            color: darkMode ? "hsl(0, 0%, 100%)" : "hsl(200, 15%, 8%)",
+            fontSize: "1.1rem",
+          }}
+        >
+          The country ({search}) does not exist!
+          <br />
+          Search for another country.
+        </p>
+      )}
+    </div>
   );
 };
 

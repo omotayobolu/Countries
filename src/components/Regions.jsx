@@ -1,31 +1,36 @@
-import React, { useEffect, useState } from "react";
+import useSWR from "swr";
 import { Link, useParams } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import Header from "./Header";
 import Dropdown from "./Dropdown";
-import { motion } from "framer-motion";
+import ErrorPage from "./ErrorPage";
 
 const Regions = ({ darkMode, toggleDarkMode }) => {
-  const [regions, setRegions] = useState([]);
-
   let params = useParams();
 
-  const getRegion = async () => {
-    const data = await fetch(
-      `https://restcountries.com/v3.1/region/${params.region}`
-    );
-    const regions = await data.json();
-    setRegions(regions);
-    console.log(regions);
+  const fetcher = async (url) => {
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      const error = new Error("Something went wrong!");
+      console.log(error);
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
+
+    return res.json();
   };
 
-  useEffect(() => {
-    getRegion();
-  });
+  const { data, isLoading, error } = useSWR(
+    `https://restcountries.com/v3.1/region/${params.region}`,
+    fetcher
+  );
 
-  if (regions.length === 0) {
-    return <p className={darkMode ? "dark loading" : "loading"}>Loading....</p>;
-  }
+  if (isLoading)
+    return <p className={darkMode ? "dark loading" : "loading"}>Loading...</p>;
+
+  if (error) return <ErrorPage darkMode={darkMode} />;
 
   return (
     <div className={darkMode ? "dark regions" : "regions"}>
@@ -38,17 +43,10 @@ const Regions = ({ darkMode, toggleDarkMode }) => {
         </Link>
         <Dropdown darkMode={darkMode} />
       </div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 1 }}
-        className="region-countries"
-        style={{ paddingBottom: "10%" }}
-      >
-        {regions.map((item) => {
+      <div className="region-countries" style={{ paddingBottom: "10%" }}>
+        {data.map((item) => {
           return (
-            <Link to={"/details/" + item.name.common}>
+            <Link to={"/details/" + item.name.common} key={item.name.common}>
               <div
                 className={darkMode ? "dark content" : "content"}
                 key={item.ccn3}
@@ -69,7 +67,7 @@ const Regions = ({ darkMode, toggleDarkMode }) => {
                     <p style={{ display: "flex" }}>
                       <strong>Capital</strong>:{" "}
                       <span>
-                        {item.capital ? item.capital : <p> No capital</p>}
+                        {item.capital ? item.capital : <span> No capital</span>}
                       </span>
                     </p>
                   </div>
@@ -78,7 +76,7 @@ const Regions = ({ darkMode, toggleDarkMode }) => {
             </Link>
           );
         })}
-      </motion.div>
+      </div>
     </div>
   );
 };

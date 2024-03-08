@@ -30,7 +30,6 @@ $breakpoints: (
 
 body {
   background-color: $LightBackground;
-  height: 100%;
   overflow-x: hidden;
 
   &.dark {
@@ -60,6 +59,7 @@ strong {
 .loading {
   display: grid;
   place-items: center;
+  text-align: center;
   font-weight: 600;
   font-size: 1.5rem;
   height: 100vh;
@@ -139,6 +139,8 @@ strong {
 .home-page {
   padding: $desktopPadding;
   padding-top: 3rem;
+  min-height: 100vh;
+  height: 100%;
 
   @include mobile {
     padding-top: 2rem;

@@ -1,35 +1,38 @@
-import { useEffect, useState } from "react";
+import useSWR from "swr";
 import CountryPage from "./CountryPage";
 import Header from "./Header";
+import ErrorPage from "./ErrorPage";
 
 const Home = ({ darkMode, toggleDarkMode }) => {
-  const [loading, setLoading] = useState(false);
-  const [country, setCountry] = useState([]);
+  const fetcher = async (url) => {
+    const res = await fetch(url);
 
-  useEffect(() => {
-    getCountry();
-  }, []);
+    if (!res.ok) {
+      const error = new Error("An error occured. Try again later.");
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
 
-  const getCountry = async () => {
-    setLoading(true);
-    const api = await fetch("https://restcountries.com/v3.1/all");
-    const data = await api.json();
-    setCountry(data);
-    setLoading(false);
+    return res.json();
   };
+
+  const { data, isLoading, error } = useSWR(
+    "https://restcountries.com/v3.1/all",
+    fetcher
+  );
+
+  if (isLoading)
+    return <p className={darkMode ? "dark loading" : "loading"}>Loading...</p>;
+
+  if (error) {
+    return <ErrorPage darkMode={darkMode} />;
+  }
+
   return (
     <div>
       <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      {loading ? (
-        <p className={darkMode ? "dark loading" : "loading"}>Loading...</p>
-      ) : (
-        <CountryPage
-          darkMode={darkMode}
-          toggleDarkMode={toggleDarkMode}
-          country={country}
-          setCountry={setCountry}
-        />
-      )}
+      <CountryPage darkMode={darkMode} country={data} />
     </div>
   );
 };

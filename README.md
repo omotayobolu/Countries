@@ -42,8 +42,6 @@ Users should be able to:
 - CSS Grid
 - Desktop-first workflow
 - SASS/SCSS
-- Framer motion
-- AOS (Animate On Scroll)
 - [React](https://reactjs.org/) - JS library
 
 ## Author

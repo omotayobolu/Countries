@@ -1,65 +1,51 @@
-import { useEffect, useState } from "react";
+import useSWR from "swr";
 import { useParams, Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import Header from "./Header";
-import { nanoid } from "nanoid";
-import { motion } from "framer-motion";
+import ErrorPage from "./ErrorPage";
 
 const Details = ({ darkMode, toggleDarkMode }) => {
   let params = useParams();
 
-  const [loading, setLoading] = useState(false);
-  const [details, setDetails] = useState([]);
+  const fetcher = async (url) => {
+    const res = await fetch(url);
 
-  useEffect(() => {
-    setLoading(true);
-    const fetchDetails = async () => {
-      const data = await fetch(
-        `https://restcountries.com/v3.1/name/${params.name}`
-      );
-      const detailsData = await data.json();
-      setDetails(detailsData[0]);
-      console.log(detailsData[0]);
-      setLoading(false);
-    };
+    if (!res.ok) {
+      const error = new Error("An error occured!");
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
 
-    fetchDetails();
-  }, [params.name]);
+    return res.json();
+  };
 
-  if (details.length === 0) {
+  const { data, isLoading, error } = useSWR(
+    `https://restcountries.com/v3.1/name/${params.name}`,
+    fetcher
+  );
+
+  if (isLoading) {
     return <p className={darkMode ? "dark loading" : "loading"}>Loading....</p>;
   }
+
+  if (error) return <ErrorPage darkMode={darkMode} />;
 
   return (
     <div className={darkMode ? "dark detailsPage" : "detailsPage"}>
       <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0.3 }}
-        transition={{ duration: 1 }}
-        className="detail"
-      >
+      <div className="detail">
         <Link to="/">
           <button className={darkMode ? "dark back" : "back"}>
             <BiArrowBack /> Back
           </button>
         </Link>
 
-        {!loading && (
-          <div className="details-content">
-            <img
-              data-aos="fade-right"
-              data-aos-duration="3000"
-              src={details.flags.png}
-              alt={details.name.official}
-            />
-            <div
-              data-aos="fade-left"
-              data-aos-duration="3000"
-              className={darkMode ? "dark description" : "description"}
-            >
-              <h1>{details.name.common}</h1>
+        {data.map((item) => (
+          <div className="details-content" key={item.ccn3}>
+            <img src={item.flags.png} alt={item.flags.alt} />
+            <div className={darkMode ? "dark description" : "description"}>
+              <h1>{item.name.common}</h1>
               <div
                 className={
                   darkMode ? "dark main-description" : "main-description"
@@ -70,8 +56,8 @@ const Details = ({ darkMode, toggleDarkMode }) => {
                     <strong>Native Name: </strong>
                     <span>
                       {
-                        details.name.nativeName[
-                          Object.keys(details.name.nativeName)[0]
+                        item.name.nativeName[
+                          Object.keys(item.name.nativeName)[0]
                         ].official
                       }
                     </span>
@@ -79,26 +65,26 @@ const Details = ({ darkMode, toggleDarkMode }) => {
                   <p>
                     <strong>Population: </strong>
                     <span>
-                      {details.population.toLocaleString(undefined, {
+                      {item.population.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}
                     </span>
                   </p>
                   <p>
                     <strong>Region: </strong>
-                    <span>{details.region}</span>
+                    <span>{item.region}</span>
                   </p>
                   <p>
                     <strong>Sub Region: </strong>
-                    <span>{details.subregion}</span>
+                    <span>{item.subregion}</span>
                   </p>
                   <p>
                     <strong>Capital: </strong>
-                    {details.capital ? (
-                      details.capital.map((cap) => (
-                        <div className="caps" key={nanoid()}>
+                    {item.capital ? (
+                      item.capital.map((cap) => (
+                        <span className="caps" key={cap}>
                           {cap}
-                        </div>
+                        </span>
                       ))
                     ) : (
                       <p>No capital</p>
@@ -108,8 +94,8 @@ const Details = ({ darkMode, toggleDarkMode }) => {
                 <div className="main-description-2">
                   <p>
                     <strong>Top Level Domain: </strong>
-                    {details.tld.map((top) => (
-                      <span className="topLevel" key={nanoid()}>
+                    {item.tld.map((top) => (
+                      <span className="topLevel" key={top}>
                         {top}
                       </span>
                     ))}
@@ -117,27 +103,23 @@ const Details = ({ darkMode, toggleDarkMode }) => {
                   <p>
                     <strong>Currencies: </strong>
                     <span>
-                      {
-                        details.currencies[Object.keys(details.currencies)[0]]
-                          .name
-                      }
+                      {item.currencies[Object.keys(item.currencies)[0]].name}
                     </span>
                   </p>
                   <p>
                     <strong>Languages: </strong>
                     <span>
-                      {details.languages[Object.keys(details.languages)[0]]}
-                      {console.log}
+                      {item.languages[Object.keys(item.languages)[0]]}
                     </span>
                   </p>
                 </div>
               </div>
               <div className={darkMode ? "dark borders" : "borders"}>
                 <strong>Border Countries: </strong>
-                {details.borders ? (
-                  details.borders.map((border) => {
+                {item.borders ? (
+                  item.borders.map((border) => {
                     return (
-                      <span className="border" key={nanoid()}>
+                      <span className="border" key={border}>
                         {border}
                       </span>
                     );
@@ -146,10 +128,10 @@ const Details = ({ darkMode, toggleDarkMode }) => {
                   <p style={{ marginLeft: "5px" }}>No borders</p>
                 )}
               </div>
-            </div>{" "}
+            </div>
           </div>
-        )}
-      </motion.div>
+        ))}
+      </div>
     </div>
   );
 };

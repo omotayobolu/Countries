@@ -3,9 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../components/Home";
 import { useLocation } from "react-router-dom";
 import Details from "../components/Details";
-import Searched from "../components/Searched";
 import Regions from "../components/Regions";
-import { AnimatePresence } from "framer-motion";
 
 const Countries = () => {
   const location = useLocation();
@@ -17,7 +15,7 @@ const Countries = () => {
   }
 
   return (
-    <AnimatePresence exitBeforeEnter>
+    <>
       <Routes location={location} key={location.pathname}>
         <Route
           path="/"
@@ -30,19 +28,13 @@ const Countries = () => {
           }
         />
         <Route
-          path="/searched/:search"
-          element={
-            <Searched darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-          }
-        />
-        <Route
           path="/region/:region"
           element={
             <Regions darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
           }
         />
       </Routes>
-    </AnimatePresence>
+    </>
   );
 };
 
